@@ -1,5 +1,4 @@
-## Color-My-ZSH
-
+## [Color-My-ZSH](http://color-my-zsh.rigor789.com)
 Easy to use tool for customizing your oh-my-zsh terminal!
 
 ## Important notes
