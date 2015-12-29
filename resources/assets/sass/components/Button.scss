@@ -1,0 +1,10 @@
+.Button {
+  padding: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: #4C626d;
+}
+
+.Button:hover, .Button--hover {
+  background: lighten(#4C626d, 10%);
+}

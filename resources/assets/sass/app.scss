@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Droid+Sans+Mono');
+
+@import "variables";
+@import "components/Button";
+@import "terminal-colors";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #263238;
+  color: #CFD8DC;
+  font-family: $monospace-font-family;
+}
+
+.container {
+  width: 700px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+h1.brand a {
+  font-size: 1.3em;
+  color: #80CBC4;
+}
+
+a {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+footer {
+  font-size: 0.8em;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  text-align: center;
+}
