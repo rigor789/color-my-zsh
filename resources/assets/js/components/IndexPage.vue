@@ -4,7 +4,7 @@
         Easy to use tool for customizing your oh-my-zsh terminal!
     </p>
     <p>
-        This tool is open source and you can <a href="#" target="_blank">view it on GitHub</a>.
+        This tool is open source and you can <a href="https://github.com/rigor789/color-my-zsh" target="_blank">view it on GitHub</a>.
     </p>
 
     <h2>Important notes</h2>

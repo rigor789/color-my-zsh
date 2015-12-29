@@ -13347,7 +13347,9 @@ exports.insert = function (css) {
 var Vue = require('vue');
 var VueRouter = require('vue-router');
 var routes = require('./routes');
+var tracking = require('./tracking');
 
+tracking.init();
 Vue.config.debug = true;
 Vue.use(VueRouter);
 
@@ -13356,9 +13358,14 @@ var router = new VueRouter();
 
 router.map(routes.default);
 
+router.afterEach(function (transition) {
+    ga('set', 'page', transition.to.path);
+    ga('send', 'pageview');
+});
+
 router.start(app, '#app');
 
-},{"./routes":15,"vue":5,"vue-router":4}],8:[function(require,module,exports){
+},{"./routes":15,"./tracking":16,"vue":5,"vue-router":4}],8:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("/* line 2, stdin */\n.ColorPicker[_v-6448bf88] {\n  margin: 10px 0;\n  border: 1px solid #1A2329; }\n\n/* line 7, stdin */\n.ColorPicker__selector[_v-6448bf88] {\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex; }\n\n/* line 11, stdin */\n.ColorPicker__list[_v-6448bf88] {\n  position: absolute;\n  z-index: 10;\n  background: #1A2329;\n  width: 360px;\n  padding: 15px;\n  list-style: none;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 0;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap; }\n\n/* line 23, stdin */\n.ColorPicker__colorBox[_v-6448bf88] {\n  width: 15px;\n  height: 15px;\n  margin-left: 5px;\n  margin-top: 5px;\n  border: 1px solid black;\n  cursor: pointer; }\n\n/* line 32, stdin */\n.ColorPicker__colorPreview[_v-6448bf88] {\n  width: 40px;\n  height: 20px;\n  cursor: pointer; }\n\n/* line 38, stdin */\n.ColorPicker__selectInput[_v-6448bf88] {\n  border: none;\n  box-shadow: none;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  -webkit-flex: 1;\n      -ms-flex: 1;\n          flex: 1; }\n\n/* line 45, stdin */\n.ColorPicker__selectInput[_v-6448bf88]:focus {\n  outline: none; }\n")
 'use strict';
 
@@ -13472,7 +13479,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n    <h2>Welcome to Color-My-ZSH.</h2>\n    <p>\n        Easy to use tool for customizing your oh-my-zsh terminal!\n    </p>\n    <p>\n        This tool is open source and you can <a href=\"#\" target=\"_blank\">view it on GitHub</a>.\n    </p>\n\n    <h2>Important notes</h2>\n    <p>\n        This is a work in progress, currently there's no way to transfer the color scheme to your terminal.\n        This feature will be added as soon as it is done.\n    </p>\n\n    <h2>Help out</h2>\n    <p>\n        If you'd like to help out with the project, please try it out, and file a bug report for any issues you encounter.\n    </p>\n\n    <h2>Create</h2>\n    <p>\n        Create your first color-my-zsh theme with the editor.\n    </p>\n    <a v-link=\"{ path: '/create' }\" class=\"Button\">Create your theme now!</a>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n    <h2>Welcome to Color-My-ZSH.</h2>\n    <p>\n        Easy to use tool for customizing your oh-my-zsh terminal!\n    </p>\n    <p>\n        This tool is open source and you can <a href=\"https://github.com/rigor789/color-my-zsh\" target=\"_blank\">view it on GitHub</a>.\n    </p>\n\n    <h2>Important notes</h2>\n    <p>\n        This is a work in progress, currently there's no way to transfer the color scheme to your terminal.\n        This feature will be added as soon as it is done.\n    </p>\n\n    <h2>Help out</h2>\n    <p>\n        If you'd like to help out with the project, please try it out, and file a bug report for any issues you encounter.\n    </p>\n\n    <h2>Create</h2>\n    <p>\n        Create your first color-my-zsh theme with the editor.\n    </p>\n    <a v-link=\"{ path: '/create' }\" class=\"Button\">Create your theme now!</a>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -13585,7 +13592,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../utils/terminal/ShortcutInterpreter":16,"../utils/terminal/Terminal":17,"../utils/terminal/ZSHCommandInterpreter":18,"./TerminalPrompt.vue":12,"vue":5,"vue-hot-reload-api":3,"vueify-insert-css":6}],12:[function(require,module,exports){
+},{"../utils/terminal/ShortcutInterpreter":17,"../utils/terminal/Terminal":18,"../utils/terminal/ZSHCommandInterpreter":19,"./TerminalPrompt.vue":12,"vue":5,"vue-hot-reload-api":3,"vueify-insert-css":6}],12:[function(require,module,exports){
 var __vueify_style__ = require("vueify-insert-css").insert("/* line 2, stdin */\n.TerminalPrompt[_v-2572ef36] {\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex; }\n")
 'use strict';
 
@@ -13802,6 +13809,25 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.default = {
+    init: function init() {
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments);
+            }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-71845907-1', 'auto');
+        ga('send', 'pageview');
+    }
+};
+
+},{}],17:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
 exports.default = function (el, terminal) {
     for (var shortcut in shortcuts) {
@@ -13843,7 +13869,7 @@ function wrapCallback(callback, terminal) {
     };
 }
 
-},{"mousetrap":1}],17:[function(require,module,exports){
+},{"mousetrap":1}],18:[function(require,module,exports){
 "use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -13952,7 +13978,7 @@ var Terminal = exports.Terminal = (function () {
     return Terminal;
 })();
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
